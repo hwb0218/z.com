@@ -1,13 +1,17 @@
-import { ReactNode } from "react";
-import style from "@/app/(afterLogin)/layout.module.css";
+import { PropsWithChildren } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import ZLogo from "/public/zlogo.png";
 
 import NavMenu from "./_component/nav-menu/NavMenu";
 import LogoutButton from "./_component/logout-button/LogoutButton";
+import TrendSection from "./_component/trend-section/TrendSection";
+import FollowRecommend from "./_component/follow-recommend/FollowRecommend";
 
-export default function AfterLoginLayout({ children }: { children: ReactNode }) {
+import style from "@/app/(afterLogin)/layout.module.css";
+
+import ZLogo from "/public/zlogo.png";
+
+export default function AfterLoginLayout({ children }: PropsWithChildren) {
   return (
     <div className={style.container}>
       <header className={style.leftSectionWrapper}>
@@ -44,12 +48,12 @@ export default function AfterLoginLayout({ children }: { children: ReactNode }) 
                 <input type="search" />
               </form>
             </div>
-            {/* <TrendSection /> */}
+            <TrendSection />
             <div className={style.followRecommend}>
               <h3>팔로우 추천</h3>
-              {/* <FollowRecommend /> */}
-              {/* <FollowRecommend /> */}
-              {/* <FollowRecommend /> */}
+              <FollowRecommend />
+              <FollowRecommend />
+              <FollowRecommend />
             </div>
           </section>
         </div>
