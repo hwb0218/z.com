@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react";
+import { ReactNode, PropsWithChildren } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -11,7 +11,11 @@ import styles from "@/app/(afterLogin)/layout.module.css";
 
 import ZLogo from "/public/zlogo.png";
 
-export default function AfterLoginLayout({ children }: PropsWithChildren) {
+interface Props {
+  modal: ReactNode;
+}
+
+export default function AfterLoginLayout({ children, modal }: PropsWithChildren<Props>) {
   return (
     <div className={styles.container}>
       <header className={styles.leftSectionWrapper}>
@@ -58,6 +62,7 @@ export default function AfterLoginLayout({ children }: PropsWithChildren) {
           </section>
         </div>
       </div>
+      {modal}
     </div>
   );
 }
