@@ -6,10 +6,11 @@ import NavMenu from "./_component/nav-menu/NavMenu";
 import LogoutButton from "./_component/logout-button/LogoutButton";
 import TrendSection from "./_component/trend-section/TrendSection";
 import FollowRecommend from "./_component/follow-recommend/FollowRecommend";
-
-import styles from "@/app/(afterLogin)/layout.module.css";
+import RightSearchZone from "./_component/right-search-zone/RightSearchZone";
 
 import ZLogo from "/public/zlogo.png";
+
+import styles from "./layout.module.css";
 
 interface Props {
   modal: ReactNode;
@@ -52,6 +53,7 @@ export default function AfterLoginLayout({ children, modal }: PropsWithChildren<
                 <input type="search" />
               </form>
             </div>
+            <RightSearchZone />
             <TrendSection />
             <div className={styles.followRecommend}>
               <h3>팔로우 추천</h3>
