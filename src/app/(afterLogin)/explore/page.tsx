@@ -3,7 +3,7 @@ import Trend from "@/app/(afterLogin)/_component/trend-section/trend/Trend";
 
 import style from "./explore.module.css";
 
-export default function Home() {
+export default function Page() {
   return (
     <main className={style.main}>
       <div className={style.formZone}>
