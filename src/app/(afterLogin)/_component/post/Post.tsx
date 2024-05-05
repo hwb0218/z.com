@@ -8,6 +8,7 @@ import ActionButtons from "../action-buttons/ActionButtons";
 import PostArticle from "../post-article/PostArticle";
 
 import style from "./post.module.css";
+import { faker } from "@faker-js/faker";
 
 dayjs.locale("ko");
 dayjs.extend(relativeTime);
@@ -22,7 +23,7 @@ export default function Post() {
     },
     content: "post content",
     createdAt: new Date(),
-    Images: []
+    Images: [{ imageId: 1, link: faker }]
   };
   return (
     <PostArticle post={target}>
