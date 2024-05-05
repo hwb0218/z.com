@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 import style from "./commentForm.module.css";
 
 export default function CommentForm() {
-  const [content, setContent] = useState("");
+  const [content] = useState("");
   const imageRef = useRef<HTMLInputElement>(null);
   const onClickButton = () => {};
   const onSubmit = () => {};
