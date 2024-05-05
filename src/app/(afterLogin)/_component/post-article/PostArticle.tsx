@@ -8,7 +8,7 @@ import styles from "./postArticle.module.css";
 interface Props {
   post: {
     content: string;
-    postid: number;
+    postId: number;
     User: {
       id: string;
       nickname: string;
@@ -23,7 +23,7 @@ export default function PostArticle({ children, post }: PropsWithChildren<Props>
   const router = useRouter();
 
   const onClick = () => {
-    router.push(`/${post.User.id}/status/${post.postid}`);
+    router.push(`/${post.User.id}/status/${post.postId}`);
   };
 
   return (
