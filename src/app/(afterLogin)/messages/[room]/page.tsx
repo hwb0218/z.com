@@ -1,7 +1,15 @@
 import Link from "next/link";
 import { faker } from "@faker-js/faker";
+import cx from "classnames";
 
 import BackButton from "@/app/(afterLogin)/_component/back-button/BackButton";
+
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import "dayjs/locale/ko";
+
+dayjs.locale("ko");
+dayjs.extend(relativeTime);
 
 import styles from "./chatRoom.module.css";
 
@@ -36,14 +44,16 @@ export default function page() {
         {messages.map(message => {
           if (message.messageId === "zeroch0") {
             return (
-              <div key={message.messageId} className={styles.myMessage}>
-                {message.content}
+              <div key={message.messageId} className={cx(styles.message, styles.myMessage)}>
+                <div className={styles.content}>{message.content}</div>
+                <div className={styles.date}>{dayjs(message.createdAt).fromNow(true)}</div>
               </div>
             );
           }
           return (
-            <div key={message.messageId} className={styles.yourMessage}>
-              {message.content}
+            <div key={message.messageId} className={cx(styles.message, styles.yourMessage)}>
+              <div className={styles.content}>{message.content}</div>
+              <div className={styles.date}>{dayjs(message.createdAt).fromNow(true)}</div>
             </div>
           );
         })}

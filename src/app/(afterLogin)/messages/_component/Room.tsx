@@ -7,10 +7,11 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ko";
 
-import style from "@/app/(afterLogin)/messages/message.module.css";
-
 dayjs.locale("ko");
 dayjs.extend(relativeTime);
+
+import style from "./room.module.css";
+import Image from "next/image";
 
 export default function Room() {
   const router = useRouter();
@@ -30,7 +31,7 @@ export default function Room() {
   return (
     <div className={style.room} onClickCapture={onClick}>
       <div className={style.roomUserImage}>
-        <img src={faker.image.avatar()} alt="" />
+        <Image src={faker.image.avatar()} alt="" fill quality={70} />
       </div>
       <div className={style.roomChatInfo}>
         <div className={style.roomUserInfo}>

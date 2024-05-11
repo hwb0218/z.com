@@ -6,7 +6,7 @@ export default function Page() {
   return (
     <div className={style.message}>
       <div className={style.header}>
-        <h3>message</h3>
+        <h3>쪽지</h3>
       </div>
       <Room />
       <Room />
