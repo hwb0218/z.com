@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { PropsWithChildren } from "react";
 
-import MSWComponent from "./_component/MSWcomponent";
+import MSWComponent from "./_component/MSWComponent";
 
 import "./globals.css";
 
