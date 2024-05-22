@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { PropsWithChildren } from "react";
 
 import MSWComponent from "./_component/MSWComponent";
+import Providers from "./_component/Providers";
 
 import "./globals.css";
 
@@ -18,7 +19,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <html lang="en">
       <body className={inter.className}>
         <MSWComponent />
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
