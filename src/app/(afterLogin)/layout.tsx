@@ -9,17 +9,20 @@ import LogoutButton from "./_component/logout-button/LogoutButton";
 import RightSearchZone from "./_component/right-search-zone/RightSearchZone";
 import TrendSection from "./_component/trend-section/TrendSection";
 import FollowRecommend from "./_component/follow-recommend/FollowRecommend";
+import { auth } from "@/auth";
 interface Props {
   modal: ReactNode;
 }
 
-export default function AfterLoginLayout({ children, modal }: PropsWithChildren<Props>) {
+export default async function AfterLoginLayout({ children, modal }: PropsWithChildren<Props>) {
+  const session = await auth();
+
   return (
     <div className={style.container}>
       <header className={style.leftSectionWrapper}>
         <section className={style.leftSection}>
           <div className={style.leftSectionFixed}>
-            <Link className={style.logo} href="/home">
+            <Link className={style.logo} href={session?.user ? "/home" : "/"}>
               <div className={style.logoPill}>
                 <Image src={ZLogo} alt="z.com로고" width={40} height={40} />
               </div>

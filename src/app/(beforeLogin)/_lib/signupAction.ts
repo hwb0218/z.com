@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-// import { signIn } from "@/auth";
+import { signIn } from "@/auth";
 
 type PrevState = {
   message: string | null;
@@ -28,17 +28,17 @@ const singupAction = async (prevState: PrevState, formData: FormData) => {
       body: formData,
       credentials: "include"
     });
-    console.log(response.status);
+
     if (response.status === 403) {
       return { message: "user_exists" };
     }
-    console.log(await response.json());
+
     shouldRedirect = true;
-    // await signIn("credentials", {
-    //   username: formData.get("id"),
-    //   password: formData.get("password"),
-    //   redirect: false
-    // });
+    await signIn("credentials", {
+      username: formData.get("id"),
+      password: formData.get("password"),
+      redirect: false
+    });
   } catch (err) {
     console.error(err);
     return { message: null };

@@ -1,17 +1,27 @@
 "use client";
 
-import React from "react";
+import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 import Trend from "./trend/Trend";
 
 import styles from "./trendSection.module.css";
-import { usePathname } from "next/navigation";
 
 export default function TrendSection() {
   const pathname = usePathname();
 
+  const { data } = useSession();
+
   if (pathname === "/explore") {
     return null;
+  }
+
+  if (!data?.user) {
+    return (
+      <div className={styles.trendBg}>
+        <div className={styles.noTrend}>트렌드를 가져올 수 없습니다.</div>
+      </div>
+    );
   }
 
   return (
