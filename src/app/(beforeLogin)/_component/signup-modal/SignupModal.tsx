@@ -6,7 +6,7 @@ import BackButton from "../back-button/BackButton";
 
 import signupAction from "@/app/(beforeLogin)/_lib/signupAction";
 
-import style from "./signup.module.css";
+import style from "./signupModal.module.css";
 
 function showErrorMessage(message: string | null) {
   if (message === "no_id") {

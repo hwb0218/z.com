@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import styles from "@/app/(beforeLogin)/_component/main.module.css";
+import styles from "./main.module.css";
 
 import zLogo from "/public/zlogo.png";
 
