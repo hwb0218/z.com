@@ -1,7 +1,12 @@
 import { PropsWithChildren } from "react";
 
-import AuthSession from "./AuthSession";
+import AuthSessionProvider from "./AuthSession";
+import RQProvider from "./RQProvider";
 
 export default function Providers({ children }: PropsWithChildren) {
-  return <AuthSession>{children}</AuthSession>;
+  return (
+    <AuthSessionProvider>
+      <RQProvider>{children}</RQProvider>
+    </AuthSessionProvider>
+  );
 }
