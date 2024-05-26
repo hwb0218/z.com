@@ -13,22 +13,15 @@ dayjs.extend(relativeTime);
 
 import style from "./post.module.css";
 
+import type { Post } from "@/types/post";
+
 interface Props {
   noImage?: boolean;
+  post: Post;
 }
 
-export default function Post({ noImage }: Props) {
-  const target = {
-    postId: 1,
-    User: {
-      id: "elonmusk",
-      nickname: "Elon Musk",
-      image: "/yRsRRjGO.jpg"
-    },
-    content: "post content",
-    createdAt: new Date(),
-    Images: [] as any[]
-  };
+export default function Post({ noImage, post }: Props) {
+  const target = post;
 
   if (Math.random() > 0.5 && !noImage) {
     target.Images.push({ imageId: 1, link: faker.image.urlLoremFlickr() });
