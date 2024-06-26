@@ -4,16 +4,16 @@ import { useQuery } from "@tanstack/react-query";
 
 import Post from "@/app/(afterLogin)/_component/post/Post";
 
-import { getPostRecommends } from "@/app/(afterLogin)/home/_service/getPostRecommends";
+import { getFollowingPosts } from "../../_service/getFollowingPosts";
 
 import { QUERY_KEYS } from "@/constants/queryKeys";
 
 import { type Post as IPost } from "@/types/post";
 
-export default function PostRecommends() {
+export default function FollowingPosts() {
   const { data } = useQuery<IPost[]>({
-    queryKey: QUERY_KEYS.POSTS.RECOMMENDS(),
-    queryFn: getPostRecommends,
+    queryKey: QUERY_KEYS.POSTS.FOLLOWINGS(),
+    queryFn: getFollowingPosts,
     staleTime: 60 * 1000,
     gcTime: 300 * 1000
   });

@@ -44,8 +44,7 @@
 }
 
 .formZone {
-  fleX: 1;
+  flex: 1;
   height: 53px;
   width: 526px;
 }
-

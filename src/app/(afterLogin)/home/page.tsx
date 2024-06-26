@@ -4,9 +4,9 @@ import TabProvider from "./_provider/TabProvider";
 
 import Tab from "./_component/tab/Tab";
 import PostForm from "./_component/post-form/PostForm";
-import PostRecommends from "./_component/postRecommends/PostRecommends";
+import TabDecider from "./_component/tabDecider/TabDecider";
 
-import { getPostRecommends } from "./_service";
+import { getPostRecommends } from "./_service/getPostRecommends";
 
 import { QUERY_KEYS } from "@/constants/queryKeys";
 
@@ -23,7 +23,7 @@ export default async function Page() {
         <TabProvider>
           <Tab />
           <PostForm />
-          <PostRecommends />
+          <TabDecider />
         </TabProvider>
       </HydrationBoundary>
     </main>
