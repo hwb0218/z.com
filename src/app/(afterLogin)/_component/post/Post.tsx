@@ -17,21 +17,12 @@ import type { Post } from "@/types/post";
 
 interface Props {
   noImage?: boolean;
-  post?: Post;
+  post: Post;
 }
 
-export default function Post({ noImage }: Props) {
-  const target = {
-    postId: 1,
-    User: {
-      id: "elonmusk",
-      nickname: "Elon Musk",
-      image: "/yRsRRjGO.jpg"
-    },
-    content: "클론코딩 라이브로 하니 너무 힘들어요 ㅠㅠ",
-    createdAt: new Date(),
-    Images: [] as any[]
-  };
+export default function Post({ noImage, post }: Props) {
+  const target = post;
+
   if (Math.random() > 0.5 && !noImage) {
     target.Images.push(
       { imageId: 1, link: faker.image.urlLoremFlickr() },
@@ -46,7 +37,7 @@ export default function Post({ noImage }: Props) {
   }
 
   return (
-    <PostArticle post={target}>
+    <PostArticle post={post}>
       <div className={style.postWrapper}>
         <div className={style.postUserSection}>
           <Link href={`/${target.User.id}`} className={style.postUserImage}>
@@ -64,7 +55,7 @@ export default function Post({ noImage }: Props) {
             <span className={style.postDate}>{dayjs(target.createdAt).fromNow(true)}</span>
           </div>
           <div>{target.content}</div>
-          <PostImages post={target} />
+          {!noImage && <PostImages post={post} />}
           <ActionButtons />
         </div>
       </div>

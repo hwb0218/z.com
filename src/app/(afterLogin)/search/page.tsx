@@ -1,9 +1,9 @@
-import BackButton from "../_component/back-button/backButton";
+import BackButton from "../_component/back-button/BackButton";
 import SearchForm from "../_component/search-form/SearchForm";
-import Post from "../_component/post/Post";
+import Tab from "./_component/tab/Tab";
+import SearchResult from "./_component/SearchResult";
 
 import style from "./search.module.css";
-import Tab from "./_component/tab/Tab";
 
 interface Props {
   searchParams: { q: string; f?: string; pf?: string };
@@ -23,18 +23,7 @@ export default function Search({ searchParams }: Props) {
         <Tab />
       </div>
       <div className={style.list}>
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        {/*<SearchResult searchParams={searchParams} />*/}
+        <SearchResult searchParams={searchParams} />
       </div>
     </main>
   );

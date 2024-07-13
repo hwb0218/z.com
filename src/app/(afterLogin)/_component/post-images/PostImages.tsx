@@ -1,4 +1,5 @@
 import Link from "next/link";
+// import Image from "next/image";
 
 import styles from "./postImages.module.css";
 
@@ -19,7 +20,8 @@ interface Props {
 }
 
 export default function PostImages({ post }: Props) {
-  if (!post?.Images) return null;
+  if (!post.Images) return null;
+  if (!post.Images.length) return null;
 
   if (post.Images.length === 1) {
     return (
