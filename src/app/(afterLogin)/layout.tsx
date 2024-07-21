@@ -8,8 +8,10 @@ import NavMenu from "./_component/nav-menu/NavMenu";
 import LogoutButton from "./_component/logout-button/LogoutButton";
 import RightSearchZone from "./_component/right-search-zone/RightSearchZone";
 import TrendSection from "./_component/trend-section/TrendSection";
-import FollowRecommend from "./_component/follow-recommend/FollowRecommend";
+import FollowRecommendSection from "./_component/follow-recommend-sectipn/FollowRecommendSection";
+
 import { auth } from "@/auth";
+
 interface Props {
   modal: ReactNode;
 }
@@ -56,9 +58,7 @@ export default async function AfterLoginLayout({ children, modal }: PropsWithChi
             <TrendSection />
             <div className={style.followRecommend}>
               <h3>팔로우 추천</h3>
-              <FollowRecommend />
-              <FollowRecommend />
-              <FollowRecommend />
+              <FollowRecommendSection />
             </div>
           </section>
         </div>
