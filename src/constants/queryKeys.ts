@@ -3,7 +3,7 @@ export const QUERY_KEYS = {
     BASE: ["posts"] as const,
     RECOMMENDS: () => [...QUERY_KEYS.POSTS.BASE, "recommends"] as const,
     FOLLOWINGS: () => [...QUERY_KEYS.POSTS.BASE, "followings"] as const,
-    USER_POSTS: (username: string) => [...QUERY_KEYS.POSTS.BASE, username] as const
+    USER_POSTS: (username: string) => [...QUERY_KEYS.POSTS.BASE, "users", username] as const
   },
   TRENDS: {
     BASE: ["trends"] as const

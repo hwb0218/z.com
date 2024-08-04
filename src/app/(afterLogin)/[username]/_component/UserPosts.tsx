@@ -8,9 +8,10 @@ import { getUserPosts } from "../_lib/getUserPosts";
 
 import { Post as IPost } from "@/types/post";
 
-type Props = {
+interface Props {
   username: string;
-};
+}
+
 export default function UserPosts({ username }: Props) {
   const { data } = useQuery<IPost[], NonNullable<unknown>, IPost[], [_1: string, _2: string, _3: string]>({
     queryKey: ["posts", "users", username],
@@ -20,9 +21,10 @@ export default function UserPosts({ username }: Props) {
   });
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(["users", username]);
-  console.log("user", user);
-  if (user) {
-    return data?.map(post => <Post key={post.postId} post={post} />);
+
+  if (!user) {
+    return null;
   }
-  return null;
+
+  return data?.map(post => <Post key={post.postId} post={post} />);
 }
