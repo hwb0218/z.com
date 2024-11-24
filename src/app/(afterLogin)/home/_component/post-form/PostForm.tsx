@@ -1,41 +1,101 @@
 "use client";
 
 import { ChangeEventHandler, FormEventHandler, useRef, useState } from "react";
-import styles from "./postForm.module.css";
+import { useSession } from "next-auth/react";
 
-export default function PostForm() {
+import styles from "./postForm.module.css";
+import { Session } from "next-auth";
+import ReactTextareaAutosize from "react-textarea-autosize";
+
+interface Props {
+  me: Session | null;
+}
+
+export default function PostForm({ me }: Props) {
   const imageRef = useRef<HTMLInputElement>(null);
+  const [preview, setPreview] = useState<Array<{ dataUrl: string; file: File } | null>>([]);
   const [content, setContent] = useState("");
-  const me = {
-    id: "zerohch0",
-    image: "/5Udwvqim.jpg"
-  };
 
   const onChange: ChangeEventHandler<HTMLTextAreaElement> = e => {
     setContent(e.target.value);
   };
 
-  const onSubmit: FormEventHandler = e => {
+  const onSubmit: FormEventHandler = async e => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("content", content);
+    preview.forEach(p => {
+      if (p) {
+        formData.append("images", p.file);
+      }
+    });
+
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts`, {
+      method: "POST",
+      credentials: "include",
+      body: formData
+    });
   };
 
   const onClickButton = () => {
     imageRef.current?.click();
   };
 
+  const onRemoveImage = (index: number) => () => {
+    setPreview(prevPreview => {
+      const prev = [...prevPreview];
+      prev[index] = null;
+      return prev;
+    });
+  };
+
+  const onUpload: ChangeEventHandler<HTMLInputElement> = e => {
+    e.preventDefault();
+    if (e.target.files) {
+      Array.from(e.target.files).forEach((file, index) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setPreview(prevPreview => {
+            const prev = [...prevPreview];
+            prev[index] = {
+              dataUrl: reader.result as string,
+              file
+            };
+            return prev;
+          });
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+  };
+
   return (
     <form className={styles.postForm} onSubmit={onSubmit}>
       <div className={styles.postUserSection}>
         <div className={styles.postUserImage}>
-          <img src={me.image} alt={me.id} />
+          <img src={me?.user?.image as string} alt={me?.user?.image as string} />
         </div>
       </div>
       <div className={styles.postInputSection}>
-        <textarea value={content} onChange={onChange} placeholder="무슨 일이 일어나고 있나요?" />
+        <ReactTextareaAutosize value={content} onChange={onChange} placeholder="무슨 일이 일어나고 있나요?" />
+        <div>
+          {preview.map(
+            (v, index) =>
+              v && (
+                <div key={index} style={{ flex: 1 }} onClick={onRemoveImage(index)}>
+                  <img
+                    src={v.dataUrl}
+                    alt="미리보기"
+                    style={{ width: "100%", objectFit: "contain", maxHeight: "100px" }}
+                  />
+                </div>
+              )
+          )}
+        </div>
         <div className={styles.postButtonSection}>
           <div className={styles.footerButtons}>
             <div className={styles.footerButtonLeft}>
-              <input type="file" name="imageFiles" multiple hidden ref={imageRef} />
+              <input type="file" name="imageFiles" multiple hidden ref={imageRef} onChange={onUpload} />
               <button className={styles.uploadButton} type="button" onClick={onClickButton}>
                 <svg width={24} viewBox="0 0 24 24" aria-hidden="true">
                   <g>

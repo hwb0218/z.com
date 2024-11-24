@@ -11,21 +11,22 @@ import { getPostRecommends } from "./_service/getPostRecommends";
 import { QUERY_KEYS } from "@/constants/queryKeys";
 
 import style from "./home.module.css";
+import { Suspense } from "react";
+import Loading from "./loading";
+import TabDeciderSuspense from "./_component/tabDeciderSuspense/TabDeciderSuspense";
+import { auth } from "@/auth";
 
 export default async function Page() {
-  const queryClient = new QueryClient();
-  await queryClient.prefetchQuery({ queryKey: QUERY_KEYS.POSTS.RECOMMENDS(), queryFn: getPostRecommends });
-  const dehydratedState = dehydrate(queryClient);
-
+  const session = await auth();
   return (
     <main className={style.main}>
-      <HydrationBoundary state={dehydratedState}>
-        <TabProvider>
-          <Tab />
-          <PostForm />
-          <TabDecider />
-        </TabProvider>
-      </HydrationBoundary>
+      <TabProvider>
+        <Tab />
+        <PostForm me={session} />
+        <Suspense fallback={<Loading />}>
+          <TabDeciderSuspense />
+        </Suspense>
+      </TabProvider>
     </main>
   );
 }

@@ -11,7 +11,15 @@ const nextConfig = {
       }
     ]
   },
-  reactStrictMode: true
+  reactStrictMode: true,
+  async rewrites() {
+    return [
+      {
+        source: "/upload/:slug",
+        destination: "http://localhost:9090/upload/"
+      }
+    ];
+  }
 };
 
 export default nextConfig;

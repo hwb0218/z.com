@@ -2,8 +2,12 @@ import { QUERY_KEYS } from "@/constants/queryKeys";
 
 import type { Post } from "@/types/post";
 
-export async function getPostRecommends(): Promise<Post[]> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/postRecommends`, {
+interface Props {
+  pageParam?: number;
+}
+
+export async function getPostRecommends({ pageParam }: Props): Promise<Post[]> {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/recommends?cursor=${pageParam}`, {
     next: {
       tags: [...QUERY_KEYS.POSTS.RECOMMENDS()]
     },

@@ -11,11 +11,19 @@ export default function Tab() {
   const searchParams = useSearchParams();
   const onClickHot = () => {
     setCurrent("hot");
-    router.replace(`/search?q=${searchParams.get("q")}`);
+    let href = `/serach?q=${searchParams.get("q")}`;
+    if (searchParams.has("pf")) {
+      href += `&pf=${searchParams.get("pf")}`;
+    }
+    router.replace(href);
   };
   const onClickNew = () => {
     setCurrent("new");
-    router.replace(`/search?${searchParams.toString()}&f=live`);
+    let href = `/serach?q=${searchParams.get("q")}&f=live`;
+    if (searchParams.has("pf")) {
+      href += `&pf=${searchParams.get("pf")}`;
+    }
+    router.replace(href);
   };
 
   return (

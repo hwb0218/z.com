@@ -4,7 +4,8 @@ type Props = {
   params: { username: string; id: string; photoId: string };
 };
 export default function Page({ params }: Props) {
-  console.log(params);
-
+  params.username; // elonmusk
+  params.id; // 1
+  params.photoId; // 1
   return <Home />;
 }
