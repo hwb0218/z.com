@@ -57,7 +57,11 @@ export const {
         console.log("set-cookie", setCookie);
         if (setCookie) {
           const parsed = cookie.parse(setCookie);
-          cookies().set("connect.sid", parsed["connect.sid"], parsed); // 브라우저에 쿠키를 심어주는 것
+          const connectSid = parsed["connect.sid"];
+
+          if (connectSid) {
+            cookies().set("connect.sid", connectSid, parsed);
+          }
         }
         if (!authResponse.ok) {
           return null;

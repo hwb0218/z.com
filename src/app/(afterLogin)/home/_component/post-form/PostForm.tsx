@@ -4,8 +4,10 @@ import { ChangeEventHandler, FormEventHandler, useRef, useState } from "react";
 import { useSession } from "next-auth/react";
 
 import styles from "./postForm.module.css";
-import { Session } from "next-auth";
+import { AuthError, Session } from "next-auth";
 import ReactTextareaAutosize from "react-textarea-autosize";
+import { useQueryClient } from "@tanstack/react-query";
+import { Post } from "@/types/post";
 
 interface Props {
   me: Session | null;
@@ -15,6 +17,7 @@ export default function PostForm({ me }: Props) {
   const imageRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<Array<{ dataUrl: string; file: File } | null>>([]);
   const [content, setContent] = useState("");
+  const queryClient = useQueryClient();
 
   const onChange: ChangeEventHandler<HTMLTextAreaElement> = e => {
     setContent(e.target.value);
@@ -30,11 +33,27 @@ export default function PostForm({ me }: Props) {
       }
     });
 
-    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts`, {
-      method: "POST",
-      credentials: "include",
-      body: formData
-    });
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts`, {
+        method: "POST",
+        credentials: "include",
+        body: formData
+      });
+
+      if (res.status === 201) {
+        setContent("");
+        setPreview([]);
+        const newPost = await res.json();
+        queryClient.setQueryData(["posts", "recommends"], (prevData: { pages: Post[][] }) => {
+          const shallow = { ...prevData, pages: [...prevData.pages] };
+          shallow.pages[0] = [...shallow.pages[0]];
+          shallow.pages[0].unshift(newPost);
+          return shallow;
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const onClickButton = () => {
